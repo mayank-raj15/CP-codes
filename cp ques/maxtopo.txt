@@ -1,0 +1,73 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long int ll;
+
+int fact(int n){
+
+     return (n==0) || (n==1) ? 1 : n* fact(n-1);
+}
+
+ll an=0;
+
+int dfs(vector<vector<int>> &graph, vector<bool> &visited, vector<int> &degree, int v, int k)
+{
+    if(degree[v]==1 && v!=k)
+    {
+        return 1;
+    }
+    ll deg=0,ans=1;
+    for(auto i:graph[v])
+    {
+        if(!visited[i])
+        {
+            visited[i] = true;
+            int x = dfs(graph,visited,degree,i,k);
+            deg++;
+            ans = ans*x;
+        }
+    }
+    return fact(deg)*ans;
+}
+
+int main() {
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    int n,k,x,y;
+	    cin>>n>>k;
+	    vector<vector<int>> graph(n+1);
+	    vector<int> degree(n+1,0);
+	    for(int i=0; i<n-1; i++)
+	    {
+	        cin>>x>>y;
+	        graph[x].push_back(y);
+	        graph[y].push_back(x);
+	        degree[x]++;
+	        degree[y]++;
+	    }
+	    int mx1=INT_MIN, mx2=INT_MIN, index[2];
+	    for(int i=1; i<=n; i++)
+	    {
+	        if(degree[i]>=mx1)
+	        {
+	            mx2 = mx1;
+	            index[1] = index[0];
+	            mx1 = degree[i];
+	            index[0] = i;
+	        }
+	        else if(degree[i]>=mx2)
+	        {
+	            mx2=degree[i];
+	            index[1]=i;
+	        }
+	    }
+	    k=index[k-1];
+	    vector<bool> visited(n+1,false);
+	    visited[k] = true;
+	    an = dfs(graph,visited,degree,1,1);
+	    cout<<1<<" "<<an%1000000007;
+	}
+	return 0;
+}

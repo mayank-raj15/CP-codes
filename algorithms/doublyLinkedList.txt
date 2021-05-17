@@ -1,0 +1,115 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct node
+{
+    ll data;
+    node* prev;
+    node* next;
+};
+
+node* createNode(ll temp)
+{
+    node* head = (node*)malloc(sizeof(node));
+    head->data = temp;
+    head->prev = NULL;
+    head->next = NULL;
+    return head;
+}
+
+node* addElementFront(node* head, ll temp)
+{
+    node* newNode = createNode(temp);
+    node* ptr = head;
+    newNode->next = ptr;
+    ptr->prev = newNode;
+    head = newNode;
+    return head;
+}
+
+node* addElementBack(node* tail, ll temp)
+{
+    node* newNode = createNode(temp);
+    node* ptr = tail;
+    ptr->next = newNode;
+    newNode->prev = ptr;
+    tail = newNode;
+    return tail;
+}
+
+node* addElementPosition(node* head, ll temp, ll pos)
+{
+    if(pos==1)
+        return addElementFront(head, temp);
+    node* newNode = createNode(temp);
+    node* ptr = head;
+    for(int i=2; i<pos; i++)
+        ptr = ptr->next;
+    node* nextptr = ptr->next;
+    newNode->next = nextptr;
+    newNode->prev = ptr;
+    ptr->next = newNode;
+    nextptr->prev = newNode;
+    return head;
+}
+
+node* deleteElementFront(node* head)
+{
+    node* ptr = head;
+    ptr->next->prev = NULL;
+    head = ptr->next;
+    delete(ptr);
+    return head;
+}
+
+node* deleteElementBack(node* tail)
+{
+    node* ptr = tail;
+    ptr->prev->next = NULL;
+    tail = ptr->prev;
+    delete(ptr);
+    return tail;
+}
+
+node* deleteElementPosition(node* head, ll pos)
+{
+    if(pos==1)
+        return deleteElementFront(head);
+    node* prvptr = head;
+    for(int i=2; i<pos; i++)
+        prvptr = prvptr->next;
+    node* ptr = prvptr->next;
+    prvptr->next = ptr->next;
+    ptr->next->prev = prvptr;
+    delete(ptr);
+    return head;
+}
+
+void printList(node* head, node* tail)
+{
+    node* ptr = head;
+    cout<<ptr->data<<" ";
+    do
+    {
+        ptr = ptr->next;
+        cout<<ptr->data<<" ";
+    } while(ptr != tail);
+}
+
+int main() {
+    int n;
+    cin>>n;
+    ll temp, pos;
+    cin>>temp;
+    node* head = createNode(temp);
+    node* tail = head;
+    for(int i=1; i<n; i++)
+    {
+        cin>>temp;
+        tail = addElementBack(tail, temp);
+    }
+    head = deleteElementPosition(head, 3);
+    printList(head, tail);
+    return 0;
+}

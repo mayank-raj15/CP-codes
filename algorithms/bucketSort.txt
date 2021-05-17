@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void bucketSort(double a[], int n)
+{
+    int bucketCount = n;
+    double maxRange = 10000000000;
+    vector<vector<double>> bucket(bucketCount);      //creating buckets
+    for(int i=0; i<n; i++)
+        a[i] = a[i]/maxRange;               //dividing by max range to get decimals
+    for(int i=0; i<n; i++)
+        bucket[floor(bucketCount*a[i])].push_back(a[i]);    //multipying by bucketCount to enter in appropriate positions
+    for(int i=0; i<bucketCount; i++)
+        sort(bucket[i].begin(), bucket[i].end());       //sorting each bucket individually
+    int j=0;
+    for(int i=0; i<bucketCount; i++)
+        for(auto it:bucket[i])
+        {
+            a[j] = it*maxRange;             //copying the sorted data back to the array
+            j++;
+        }
+}
+
+int main() {
+    int n;
+    cin>>n;
+    double a[n];
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+    bucketSort(a,n);
+    for(int i=0; i<n; i++)
+        cout<<setprecision(10)<<a[i]<<" ";
+    return 0;
+}
+
+

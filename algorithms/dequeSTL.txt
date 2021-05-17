@@ -1,0 +1,40 @@
+#include <iostream>
+#include <deque>
+using namespace std;
+
+void showDeque(deque<int> dq)
+{
+    auto itr = dq.begin();
+    while(itr!=dq.end())
+    {
+        cout<<*itr<<" ";
+        itr++;
+    }
+    cout<<endl;
+}
+
+int main() {
+    deque<int> dq = {2,3,4};
+    //also we can initialize it similar to we initialize vectors
+    dq.push_back(6);
+    dq.push_front(5);
+    showDeque(dq);
+    dq.pop_back();
+    dq.pop_front();
+    showDeque(dq);
+    cout<<dq[1]<<endl;
+    cout<<dq.size()<<endl;
+    cout<<dq.empty()<<endl;
+    deque<int> dq2;
+    dq2.assign(dq.begin(), dq.end());
+    showDeque(dq2);
+    auto itr = dq2.begin();
+    dq2.insert(++itr, 3, 0);
+    showDeque(dq2);
+    dq2.erase(--itr);
+    showDeque(dq2);
+    dq2.clear();
+    dq2.push_back(2);
+    showDeque(dq2);
+    return 0;
+}

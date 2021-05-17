@@ -1,0 +1,62 @@
+
+// int knapsack(int n, int wt, int profit[], int weight[])
+// {
+//     int maxProfit = 0;
+
+//     queue<BranchNode> q;
+
+//     BranchNode a, b;
+
+//     a.level = -1;
+//     a.profit = 0;
+//     a.weight = 0;
+//     q.push(a);
+
+//     while (!q.empty())
+//     {
+//         a = q.front();
+//         q.pop();
+
+//         if (a.level == -1)
+//         {
+//             b.level = 0;
+//         }
+
+//         if (a.level == n - 1)
+//         {
+//             continue;
+//         }
+
+//         b.level = a.level + 1;
+
+//         int curIndex = b.level;
+//         b.profit = a.profit + profit[curIndex];
+//         b.weight = a.weight + weight[curIndex];
+
+//         if (b.weight <= wt && b.profit > maxProfit)
+//         {
+//             maxProfit = b.profit;
+//         }
+
+
+//         b.bound = getBound(b, n, wt, weight, profit);
+
+//         if (b.bound > maxProfit)
+//         {
+//             q.push(b);
+//         }
+
+//         b.weight = a.weight;
+//         b.profit = a.profit;
+//         b.bound = getBound(b, n, wt, weight, profit);
+
+//         if (b.bound > maxProfit)
+//         {
+//             q.push(b);
+//         }
+
+//     }
+
+//     return maxProfit;
+
+// }

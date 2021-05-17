@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+typedef long long int ll;
+
+bool isGreater(ll i, ll j)
+{
+    return i>j;             //this inequality causes the heap to behave as a min heap
+}
+
+void printArray(vector<ll> v)
+{
+    auto itr = v.begin();
+    while(itr!=v.end())
+    {
+        cout<<*itr<<" ";
+        itr++;
+    }
+    cout<<endl;
+}
+
+int main() {
+    vector<ll> v = {5, 6, 1, 8, 2};
+    make_heap(v.begin(), v.end(), isGreater);
+    printArray(v);
+    v.push_back(9);                 //pushing element at the back
+    push_heap(v.begin(), v.end(), isGreater);  //max_heapify 
+    printArray(v);
+    pop_heap(v.begin(), v.end(), isGreater);   //this swaps the first element with last and heapify the array till last-1
+    printArray(v);
+    v.pop_back();                   //removing the last element
+    printArray(v);
+    cout<<is_heap(v.begin(), v.end(), isGreater)<<endl;    //check whether an array is a heap or not
+    v.push_back(0);
+    auto last = is_heap_until(v.begin(), v.end(), isGreater);  //checking until where the array is a heap, returns pointer of non-heap element 
+    cout<<*last<<endl;
+    return 0;
+}
+
+
+
+
+
+
+

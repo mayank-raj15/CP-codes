@@ -1,0 +1,41 @@
+#include <iostream>
+#include <map>
+using namespace std;
+
+void ShowMap(multimap<char, int> mm)
+{
+    auto itr = mm.begin();
+    while(itr!=mm.end())
+    {
+        cout<<(*itr).first<<" "<<(*itr).second<<endl;
+        itr++;
+    }
+    cout<<"//////////////"<<endl;
+}
+
+int main() {
+    multimap<char, int> mm;     //add greater<char> as argument to sort in descending order
+    mm.insert(pair<char,int>('a', 25));
+    mm.insert(pair<char,int>('b', 15));
+    mm.insert(mm.begin(), pair<char,int>('a', 27));
+    mm.insert({'c', 14});
+    ShowMap(mm);
+    auto itr = mm.find('a');        //can't say which pair is selected
+    cout<<itr->second<<endl;      
+    auto range = mm.equal_range('a');
+    for(auto it=range.first; it!=range.second; it++)
+    {
+        cout<<it->first<<' '<<it->second<<endl;
+    }
+    cout<<"///////"<<endl;
+    mm.erase(mm.begin());       //erases the last inserted element
+    ShowMap(mm);
+    //mm.erase('a');          //erases all pairs with 'a' as the key
+    ShowMap(mm);
+    //size(), empty(), clear() works the same
+    cout<<mm.count('a')<<endl;
+    return 0;
+}
+
+
+

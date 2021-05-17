@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int length;
+
+void getCombinations(vector<vector<string>> &vec, int cur, string res,string ch)
+{
+    res+=ch;
+    if(res.length()==length)
+    {
+        cout<<res<<" ";
+        return;
+    }
+    else
+    {
+        for(auto i:vec[cur])
+        {
+            getCombinations(vec,cur+1,res,i);
+        }
+    }
+}
+
+int main()
+{
+    string s;
+    cin>>s;
+    vector<vector<string>> vec(100);
+    int i=0;
+    for(int j=0; j<s.length(); j++)
+    {
+        if(s[j]=='{')
+        {
+            j++;
+            while(s[j]!='}' && j<s.length())
+            {
+                if(s[j]==',')
+                {
+                    j++;
+                    continue;
+                }
+                string stemp = "";
+                stemp+=s[j];
+                vec[i].push_back(stemp);
+                j++;
+            }
+            length++;
+            i++;
+        }
+        else
+        {
+            string stemp;
+            while(s[j]!='{' && j<s.length())
+            {
+                stemp+=s[j];
+                length++;
+                j++;
+            }
+            vec[i].push_back(stemp);
+            i++;
+            j--;
+        }
+    }
+    string res="";
+    getCombinations(vec,0,res,"");
+    
+}

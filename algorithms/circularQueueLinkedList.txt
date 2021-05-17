@@ -1,0 +1,71 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct Queue
+{
+    ll data;
+    Queue* next;
+};
+
+Queue* createNode()
+{
+    Queue* q = (Queue*)malloc(sizeof(Queue));
+    q->data = NULL;
+    q->next = NULL;
+    return q;
+}
+
+int isEmpty(Queue* front, Queue* rear)
+{
+    return front==NULL && rear == NULL;
+}
+
+void enqueue(Queue** front, Queue** rear, ll data)
+{
+    Queue* newNode = createNode();
+    newNode->data = data;
+    if(isEmpty(*front, *rear))
+    {
+        *front = newNode;
+        *rear = newNode;
+    }
+    else
+    {
+        (*rear)->next = newNode;
+        *rear = newNode;
+    }
+}
+
+ll dequeue(Queue** front, Queue** rear)
+{
+    if(isEmpty(*front, *rear))
+        return -1;
+    ll value = (*front)->data;
+    Queue* ptr = *front;
+    if(*front==*rear)
+    {
+        *front = NULL;
+        *rear = NULL;
+    }
+    else
+        *front = (*front)->next;
+    delete(ptr);
+    return value;
+}
+
+int main() {
+    Queue* front = NULL;
+    Queue* rear = NULL;
+    int n;
+    cin>>n;
+    ll temp;
+    for(int i=0; i<n; i++)
+    {
+        cin>>temp;
+        enqueue(&front, &rear, temp);
+    }
+    for(int i=0; i<n; i++)
+        cout<<dequeue(&front, &rear)<<" ";
+    return 0;
+}

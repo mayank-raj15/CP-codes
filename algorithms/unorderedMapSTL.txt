@@ -1,0 +1,41 @@
+#include <iostream>
+#include <unordered_map>
+using namespace std;
+
+void showMap(unordered_map<char, int> mymap)
+{
+    auto itr = mymap.begin();
+    while(itr!=mymap.end())
+    {
+        cout<<(*itr).first<<" "<<(*itr).second<<endl;
+        advance(itr,1);
+    }
+}
+
+int main() {
+    unordered_map<char,int> mymap;
+    //beign, end, advance, next, distance - they also work here
+    mymap['a'] = 5;
+    mymap['b'] = 7;
+    mymap['c'] = 3;
+    //showMap(mymap);
+    mymap.insert(mymap.begin(), pair<char,int> ('d', 10));
+    mymap['b'] = 6;
+    showMap(mymap);
+    cout<<mymap['d']<<endl;
+    auto itr = mymap.find('a');
+    cout<<(*itr).first<<" "<<(*itr).second<<endl;
+    mymap.erase(itr);
+    mymap.erase('b');
+    cout<<mymap.size()<<endl;
+    //mymap.clear();
+    cout<<mymap.empty()<<endl;
+    mymap.count('c');       //this will return 1 in case of unordered map if element is present because it doesn't allow duplicate keys
+    
+    return 0;
+}
+
+
+
+
+

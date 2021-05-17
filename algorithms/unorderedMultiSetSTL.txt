@@ -1,0 +1,41 @@
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+
+void showSet(unordered_multiset<char> myset)
+{
+    auto itr = myset.begin();
+    while(itr!=myset.end())
+    {
+        cout<<*itr<<" ";
+        advance(itr,1);
+    }
+    cout<<endl;
+}
+
+int main() {
+    unordered_multiset<char> myset;
+    //beign, end, advance, next, distance - they also work here
+    myset.insert('a');
+    myset.insert('a');
+    myset.insert('a');
+    myset.insert('b');
+    myset.insert('b');
+    myset.insert('c');
+    showSet(myset);
+    auto itr = myset.find('a');     //not necessarily the first element found
+    cout<<*itr<<endl;
+    myset.erase(itr);
+    myset.erase('b');
+    cout<<myset.size()<<endl;
+    //myset.clear();
+    cout<<myset.empty()<<endl;
+    cout<<myset.count('a');     //it will return the number of 'a' in the set
+    
+    return 0;
+}
+
+
+
+
+

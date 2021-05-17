@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef unsigned long long int ll;
+
+void countSort(ll a[], int n, int d)
+{
+    int count[10] = {0};        //defining a count array for each distinct digit
+    for(int i=0; i<n; i++)      
+    {
+        ll temp = a[i]/pow(10,d);   //dividing to get the required digit as the alst digit
+        count[temp%10]++;       //taking reaminder to get the last digit as index
+    }
+    for(int i=1; i<10; i++)
+        count[i] += count[i-1];     //usual count sort stuff
+    ll ans[n];
+    for(int i=n-1; i>=0; i--)
+    {
+        ll temp = a[i]/pow(10,d);
+        ans[--count[temp%10]] = a[i];       //usual count sort stuff
+    }
+    for(int i=0; i<n; i++)
+        a[i]=ans[i];        //copying the elements back to the array
+}
+
+void lsdRadixSort(ll a[], int n)
+{
+    ll mx = INT_MIN;            
+    for(int i=0; i<n; i++)
+        mx = max(mx,a[i]);      //finding the element with maximum value
+    int d = log10(mx) + 1;      //finding the no of digits in the max element
+    for(int i=0; i<d; i++)      
+        countSort(a, n, i);     //for each place value, calling the count sort function again and again
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    ll a[n];
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+    lsdRadixSort(a,n);      //calling the sort function
+    for(int i=0; i<n; i++)
+        cout<<a[i]<<" ";
+}

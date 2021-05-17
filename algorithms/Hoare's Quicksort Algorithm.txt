@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+//Hoare's Partitioning Algorithm
+
+int partition(ll a[], int lo, int hi)
+{
+    int pivot = a[lo], low=lo, high=hi;     //choosing first element as pivot
+    
+    while(1)
+    {
+        while(a[low]<pivot)         //if element is less than pivot, we continue
+            low++;
+        while(a[high]>pivot)        //if element is greater than pivot, we continue
+            high--;
+        if(low<high)                //finally if low < high, we swap them
+            swap(a[low], a[high]);
+        else                        //if low>=high, we return high, as high will be the pivot
+            return high;
+    }
+    
+}
+
+void quickSort(ll a[], int lo, int hi)
+{
+    if(lo<hi)
+    {
+        int partIndex = partition(a,lo,hi);     //getting partition index
+        quickSort(a,lo,partIndex-1);            //partition index already at right position so we don't call it again
+        quickSort(a,partIndex+1,hi);
+    }
+}
+
+int main() {
+    int n;
+    cin>>n;
+    ll a[n];
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+    quickSort(a,0,n-1);
+    for(int i=0; i<n; i++)
+        cout<<a[i]<<" ";
+    return 0;
+}

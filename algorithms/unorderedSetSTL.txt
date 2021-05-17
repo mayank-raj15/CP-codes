@@ -1,0 +1,37 @@
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+
+void showSet(unordered_set<char> myset)
+{
+    auto itr = myset.begin();
+    while(itr!=myset.end())
+    {
+        cout<<*itr<<endl;
+        advance(itr,1);
+    }
+}
+
+int main() {
+    unordered_set<char> myset;
+    //beign, end, advance, next, distance - they also work here
+    myset.insert('a');
+    myset.insert('b');
+    myset.insert('c');
+    showSet(myset);
+    auto itr = myset.find('a');
+    cout<<*itr<<endl;
+    myset.erase(itr);
+    myset.erase('b');
+    cout<<myset.size()<<endl;
+    //myset.clear();
+    cout<<myset.empty()<<endl;
+    myset.count('c');       //this will return 1 in case of unordered set if element is present because it doesn't allow duplicate keys
+    
+    return 0;
+}
+
+
+
+
+

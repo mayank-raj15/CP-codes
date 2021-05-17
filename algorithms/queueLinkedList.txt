@@ -1,0 +1,79 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct Queue
+{
+    ll data;
+    Queue* next;
+};
+
+Queue* createNode()
+{
+    Queue* node = (Queue*)malloc(sizeof(Queue));
+    node->data = NULL;
+    node->next = NULL;
+    return node;
+}
+
+int isEmpty(Queue* front, Queue* rear)
+{
+    return front==NULL || rear==NULL;
+}
+
+void enqueue(Queue** front, Queue** rear, ll temp)
+{
+    if(isEmpty(*front, *rear))
+    {
+        Queue* newNode = createNode();
+        newNode->data = temp;
+        newNode->next = *front;
+        *front = newNode;
+        *rear = newNode;
+        return;
+    }
+    Queue* newNode = createNode();
+    newNode->data = temp;
+    (*rear)->next = newNode;
+    *rear = newNode;
+}
+
+ll dequeue(Queue** front, Queue** rear)
+{
+    if(isEmpty(*front, *rear))
+        return -1;
+    ll value = (*front)->data;
+    Queue* ptr = *front;
+    *front = ptr->next;
+    delete(ptr);
+    return value;
+}
+
+ll peek(Queue** front, Queue** rear)
+{
+    if(isEmpty(*front, *rear))
+        return -1;
+    ll value = (*front)->data;
+    return value;
+}
+
+int main() {
+    Queue* queue = createNode();
+    Queue* front = NULL;
+    Queue* rear = NULL;
+    ll n, temp;
+    cin>>n;
+    for(int i=0; i<n; i++)
+    {
+        cin>>temp;
+        enqueue(&front, &rear, temp);
+    }
+    for(int i=0; i<n; i++)
+    {
+        cout<<dequeue(&front, &rear)<<" ";
+    }
+    //enqueue(&front, &rear,11);
+    //cout<<peek(&front, &rear);
+    
+    return 0;
+}

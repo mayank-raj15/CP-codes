@@ -1,0 +1,24 @@
+#include <iostream>
+#include <utility>
+using namespace std;
+typedef long long int ll;
+int main() {
+    pair<string, ll> person1("Mayank", 19);
+    pair<string, ll> person2;
+    person2 = person1;              //copying a pair
+    pair<string, ll> person3;
+    person3 = make_pair("Mayank", 19);
+    cout<<(person1==person2)&&(person2==person3);       //1 because all are same
+    cout<<endl;
+    cout<<"Name: "<<person1.first<<"\n";
+    cout<<"Age: "<<person1.second<<"\n";
+    //>,<,>=,<=,== compare first element and then compare the second element only when the first elements are equal
+    person2 = make_pair("Ram", 20);
+    person1.swap(person2);          //it swaps the contents of both pairs
+    cout<<"Name: "<<person1.first<<"\n";
+    cout<<"Age: "<<person1.second<<"\n";
+    pair<string,ll> person4;            //initialized with empty string and 0
+    cout<<"Name: "<<person4.first<<"\n";
+    cout<<"Age: "<<person4.second<<"\n";
+    return 0;
+}

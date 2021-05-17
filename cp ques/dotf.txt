@@ -1,0 +1,79 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    string s;
+    cin>>s;
+    int n=s.length(), flag=0;
+    int x,y;
+    if(s[0]<='9')
+    {
+        x=int(s[0]-48);
+        flag=0;
+    }
+    else
+    {
+        x=int(s[0]-64);
+        flag=1;
+    }
+    if(flag==0)
+    {
+        y=int(s[n-1]-64);
+    }
+    else
+    {
+        y=int(s[n-1]-48);
+    }
+    
+    if(n==3)
+    {
+        if(s[1]=='<')
+        {
+            if(x>y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+        else if(s[1]=='>')
+        {
+            if(x<y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+    }
+    else if(n==4)
+    {
+        if(s[1]=='<' && s[2]=='=')
+        {
+            if(x>=y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+        else if(s[1]=='>' && s[2]=='=')
+        {
+            if(x<=y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+        else if(s[1]=='=' && s[2]=='=')
+        {
+            if(x==y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+        else if(s[1]=='!' && s[2]=='=')
+        {
+            if(x!=y)
+                cout<<"Yes";
+            else
+                cout<<"No";
+        }
+    }
+    
+    
+}S

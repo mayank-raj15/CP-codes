@@ -1,0 +1,30 @@
+#include <iostream>
+#include <list>
+using namespace std;
+
+void showList(list<int> List)
+{
+    list<int>::iterator itr = List.begin();
+    while(itr!=List.end())
+    {
+        cout<<*itr<<" ";
+        advance(itr,1);
+    }
+    cout<<endl;
+}
+
+int main() {
+    list<int> List = {1,3,6,7,4};
+    showList(List);
+    cout<<List.back()<<endl;
+    List.pop_back();
+    showList(List);
+    List.insert(List.begin(), 2, 40);
+    showList(List);
+    List.erase(List.begin());
+    showList(List);
+    List.erase(List.begin(), List.end());
+    showList(List);
+    cout<<List.size();
+    return 0;
+}

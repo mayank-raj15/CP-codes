@@ -1,0 +1,81 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+typedef unsigned long long int ull;
+
+struct Queue
+{
+    ll front, rear, size;
+    ull capacity;
+    ll* array;
+};
+
+Queue* createQueue(ll n)
+{
+    Queue* queue = (Queue*)malloc(sizeof(Queue));
+    queue->front = 0;
+    queue->rear = -1;
+    queue->size = 0;
+    queue->capacity = n;
+    queue->array = (ll*)malloc(queue->capacity*sizeof(ll));
+    return queue;
+}
+
+int isEmpty(Queue* queue)
+{
+    return queue->size == 0;
+}
+
+int isFull(Queue* queue)
+{
+    return queue->size == queue->capacity;
+}
+
+void enqueue(Queue* queue, ll temp)
+{
+    if(!isFull(queue))
+    {
+        queue->rear = (queue->rear+1)%queue->capacity;
+        queue->array[queue->rear] = temp;
+        queue->size++;
+    }
+}
+
+ll dequeue(Queue* queue)
+{
+    if(!isEmpty(queue))
+    {
+        ll ret = queue->array[queue->front];
+        queue->front = (queue->front+1)%queue->capacity;
+        queue->size--;
+        return ret;
+    }
+    else
+        return -1;
+}
+
+ll peek(Queue* queue)
+{
+    if(!isEmpty(queue))
+        return queue->array[queue->front];
+    else
+        return -1;
+}
+
+int main() {
+    ll n, temp;
+    cin>>n;
+    Queue* queue = createQueue(n);
+    for(int i=0; i<n; i++)
+    {
+        cin>>temp;
+        enqueue(queue, temp);
+    }
+    for(int i=0; i<n; i++)
+    {
+        cout<<dequeue(queue)<<" ";
+    }
+    enqueue(queue, 9);
+    cout<<peek(queue);
+    return 0;
+}

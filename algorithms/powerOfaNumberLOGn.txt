@@ -1,0 +1,22 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+int power(ll x, int n)
+{
+    if(n==0)
+        return 1;
+    ll temp = power(x,n/2);
+    if(n%2==0)
+        return temp*temp;
+    else
+        return x*temp*temp;
+}
+
+int main() {
+    ll x;
+    int n;
+    cin>>x>>n;
+    cout<<power(x,n);
+    return 0;
+}

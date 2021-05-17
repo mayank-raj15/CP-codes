@@ -1,0 +1,76 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node
+{
+    int data;
+    bool color;     //red=0, blue=1
+    Node *left, *right;
+}*root;
+
+Node* creatNode(int val)
+{
+    Node* node = new Node;
+    node->data = val;
+    node->color = 0;
+    node->left = node->right = NULL;
+    return node;
+}
+
+Node* insertNode(Node* root, int val, queue<Node*> &q)
+{
+    Node* newNode = creatNode(val);
+    if(root==NULL)
+        root = newNode;
+    else if(q.front()->left==NULL)
+        q.front()->left = newNode;
+    else
+    {
+        q.front()->right = newNode;
+        q.pop();
+    }
+    q.push(newNode);
+    return root;
+}
+
+void buildTree(int n)
+{
+    int i=1;
+    queue<Node*> q;
+    while(i<pow(2,n))
+    {
+        root = insertNode(root,i,q);
+        i++;
+    }
+}
+
+int iterate(Node* &root)
+{
+    Node* x = root;
+    while(x->left!=NULL && x->right!=NULL)
+    {
+        if(x->color==0)
+        {
+            x->color = 1;
+            x=x->left;
+        }
+        else if(x->color==1)
+        {
+            x->color = 0;
+            x=x->right;
+        }
+    }
+    return x->data;
+}
+
+int main()
+{
+    int n,m,ans;
+    cin>>n>>m;
+    buildTree(n);
+    for(int i=0; i<m; i++)
+    {
+        ans = iterate(root);
+    }
+    cout<<ans;
+}

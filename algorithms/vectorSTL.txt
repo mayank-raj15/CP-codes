@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+void showVector(vector<int> v)
+{
+    auto itr = v.begin();
+    while(itr!=v.end())
+    {
+        cout<<*itr<<" ";
+        itr++;
+    }
+    cout<<"\n";
+}
+
+int main() {
+    vector<int> v1;
+    vector<int> v2(3,9);
+    vector<int> v3(v2.begin(), v2.end());
+    showVector(v1);
+    showVector(v2);
+    showVector(v3);
+    //push_back();
+    //pop_back();
+    //back();
+    //front();
+    //size();
+    //empty();
+    //assign(first, last);
+    //insert();
+    //erase();
+    return 0;
+}

@@ -1,0 +1,30 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+using namespace std;
+typedef long long int ll;
+
+bool isGreater(ll i, ll j)
+{
+    return i>j;
+}
+
+void printArray(vector<ll> v)
+{
+    auto itr = v.begin();
+    while(itr!=v.end())
+    {
+        cout<<*itr<<" ";
+        itr++;
+    }
+    cout<<endl;
+}
+
+int main() {
+    vector<ll> v = {6,2,3,8,1};
+    //stable_sort(v.begin(), v.end());    //it sorts in stable manner, also we can pass comaparator function in here
+    partial_sort(v.begin(), v.begin()+2, v.end()); //sorted in a manner that only first two smallest elements are visible
+    //partial sort is not stable
+    printArray(v);
+    return 0;
+}

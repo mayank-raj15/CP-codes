@@ -1,0 +1,77 @@
+#include <iostream>
+#include <forward_list>
+using namespace std;
+
+void showForwardList(forward_list<int> f_list)
+{
+    forward_list<int>::iterator itr = f_list.begin();
+    while(itr!=f_list.end())
+    {
+        cout<<*itr<<" ";
+        advance(itr,1);
+    }
+}
+
+int main() {
+    forward_list<int> f_list = {1,2,3,4,5};
+    showForwardList(f_list);
+    cout<<endl;
+    auto itr = f_list.begin();
+    auto newitr = next(itr,3);
+    //auto preitr = prev(newitr,3); //this will give segmentation fault as in forward_list, we can't go to previous node
+    //cout<<*newitr<<" "<<*preitr;
+    //cout<<distance(f_list.begin(), f_list.end());
+    f_list.push_front(6);
+    showForwardList(f_list);
+    cout<<endl;
+    f_list.pop_front();
+    f_list.front() = 9;
+    cout<<f_list.front()<<endl;
+    //showForwardList(f_list);
+    forward_list<int> f_list2;
+    f_list2.assign(f_list.begin(), f_list.end());
+    showForwardList(f_list2);
+    cout<<endl;
+    forward_list<int> f_list3;
+    f_list3.assign({3,5,2,6,6});
+    showForwardList(f_list3);
+    cout<<endl;
+    forward_list<int> f_list4;
+    f_list4.assign(3,8);
+    showForwardList(f_list4);
+    cout<<endl;
+    f_list.insert_after(f_list.begin(),18);
+    showForwardList(f_list);
+    cout<<endl;
+    f_list.insert_after(f_list.begin(), f_list4.begin(), f_list4.end());
+    showForwardList(f_list);
+    cout<<endl;
+    f_list.insert_after(f_list.begin(), {9,8,7});
+    showForwardList(f_list);
+    cout<<endl;
+    f_list.insert_after(f_list.begin(), 4, 0);
+    showForwardList(f_list);
+    cout<<endl;
+    f_list.erase_after(f_list.begin());
+    showForwardList(f_list);
+    cout<<endl;
+    /*f_list.erase_after(f_list.begin(), f_list.end());
+    showForwardList(f_list);
+    cout<<endl;*/
+    f_list.remove(9);
+    showForwardList(f_list);
+    cout<<endl;
+    forward_list<int> f_list5;
+    cout<<f_list5.empty();
+    cout<<endl;
+    int arr[] = {4,6,2,5,7};
+    forward_list<int> f_list6(arr, arr + sizeof(arr)/sizeof(int));
+    showForwardList(f_list6);
+    return 0;
+}
+
+
+
+
+
+

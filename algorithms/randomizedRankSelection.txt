@@ -1,0 +1,48 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+//Lomuto's partition algorithm
+int partition(ll a[], int start, int end)
+{
+    ll pivot = a[end];
+    int j=start-1;
+    for(int i=start; i<end; i++)
+    {
+        if(a[i]<pivot)
+        {
+            j++;
+            swap(a[i],a[j]);
+        }
+    }
+    j++;
+    swap(a[end],a[j]);
+    return j;
+}
+
+//selecting the correct partition and returning the answer when when found the right element
+ll randomizedSelect(ll a[],int start, int end, int k)
+{
+    if(start==end)
+        return a[start];
+    int p = partition(a,start,end);     //index of the pivot
+    int ind = p-start+1;                //rank of the pivot in the partitioned array
+    if(ind==k)                  //if correct rank is found
+        return a[p];
+    else if(k<ind)              //if rank of pivot is more than required
+        return randomizedSelect(a,start,p-1,k);
+    else                        //if rank of pivot is less than rquired
+        return randomizedSelect(a,p+1,end,k-ind);       //doing k-ind, to consider the ranks of the other pivots that were found earlier
+}
+
+int main() {
+    int n; 
+    cin>>n;
+    ll a[n];
+    for(int i=0; i<n; i++)
+        cin>>a[i];
+    int k;
+    cin>>k;
+    cout<<randomizedSelect(a,0,n-1,k);
+    return 0;
+}

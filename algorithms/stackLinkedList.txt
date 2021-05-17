@@ -1,0 +1,85 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct Stack
+{
+    ll data;
+    Stack* next;
+};
+
+Stack* createNode()
+{
+    Stack* node = (Stack*)malloc(sizeof(Stack));
+    node->data = NULL;
+    node->next = NULL;
+    return node;
+}
+
+int isEmpty(Stack* top)
+{
+    return top==NULL;
+}
+
+int isFull(Stack* top)
+{
+    Stack* newNode = createNode();
+    if(newNode==NULL)
+        return 1;
+    else
+    {
+        delete(newNode);
+        return 0;
+    }
+}
+
+void push(Stack** top, ll temp)
+{
+    if(isFull(*top))
+        return;
+    else
+    {
+        Stack* newNode = createNode();
+        newNode->data = temp;
+        newNode->next = *top;
+        *top = newNode;
+    }
+}
+
+ll pop(Stack** top)
+{
+    if(isEmpty(*top))
+        return -1;
+    else
+    {
+        Stack* ptr = *top;
+        *top = ptr->next;
+        ll value = ptr->data;
+        delete(ptr);
+        return value;
+    }
+}
+
+ll peek(Stack** top)
+{
+    if(isEmpty(*top))
+        return -1;
+    else
+        return (*top)->data;
+}
+
+int main() {
+    ll n,temp;
+    cin>>n;
+    Stack* top = NULL;
+    for(int i=0; i<n; i++)
+    {
+        cin>>temp;
+        push(&top, temp);
+    }
+    for(int i=0; i<n; i++)
+    {
+        cout<<pop(&top)<<" ";
+    }
+    return 0;
+}

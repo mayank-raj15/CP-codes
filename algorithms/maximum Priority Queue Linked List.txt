@@ -1,0 +1,95 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct pq
+{
+    ll data, priority;
+    pq* next;
+};
+
+pq* createQueue()
+{
+    pq* head = (pq*)malloc(sizeof(pq));
+    head->data = head->priority = NULL;
+    head->next = NULL;
+    return head;
+}
+
+int isEmpty(pq* head)
+{
+    return head==NULL;
+}
+
+pq* insert(pq* head, ll data, ll priority)
+{
+    if(isEmpty(head))
+    {
+        pq* newNode = createQueue();
+        newNode->data = data;
+        newNode->priority = priority;
+        head = newNode;
+        return head;
+    }
+    pq* ptr = head;
+    pq* prvptr = ptr;
+    while(ptr!=NULL && ptr->priority>priority)
+    {
+        prvptr=ptr;
+        ptr=ptr->next;
+    }
+    pq* newNode = createQueue();
+    newNode->data = data;
+    newNode->priority = priority;
+    if(ptr==head)
+    {
+        newNode->next = ptr;
+        head = newNode;
+    }
+    else
+    {
+        prvptr->next = newNode;
+        newNode->next = ptr;
+    }
+    return head;
+}
+
+void printQueue(pq* head)
+{
+    pq* ptr = head;
+    while(ptr!=NULL)
+    {
+        cout<<ptr->data<<" ";
+        ptr=ptr->next;
+    }
+}
+
+ll extractMaximum(pq** head)
+{
+    ll value = (*head)->data;
+    pq* ptr = *head;
+    *head = ptr->next;
+    delete(ptr);
+    return value;
+}
+
+ll maximum(pq* head)
+{
+    return head->data;
+}
+
+int main() {
+    pq* head = NULL;
+    int n;
+    cin>>n;
+    ll data, priority;
+    for(int i=0; i<n; i++)
+    {
+        cin>>data>>priority;
+        head = insert(head, data, priority);
+    }
+    cout<<"Max: "<<maximum(head)<<endl;
+    cout<<"Extract Max: "<<extractMaximum(&head)<<endl;
+    printQueue(head);
+    return 0;
+}

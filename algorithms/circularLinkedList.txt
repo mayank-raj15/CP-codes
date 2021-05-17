@@ -1,0 +1,129 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct node
+{
+    ll data;
+    node* next;
+};
+
+node* createHead(ll temp)
+{
+    node* head = (node*)malloc(sizeof(node));
+    head->data = temp;
+    head->next = head;
+    return head;
+}
+
+node* createNode(ll temp)
+{
+    node* head = (node*)malloc(sizeof(node));
+    head->data = temp;
+    head->next = NULL;
+    return head;
+}
+
+node* addElementFront(node* head, ll temp)
+{
+    node* newNode = createNode(temp);
+    node* ptr = head;
+    while(ptr->next != head)
+        ptr = ptr->next;
+    ptr->next = newNode;
+    newNode->next = head;
+    head = newNode;
+    return head;
+}
+
+void addElementBack(node* head, ll temp)
+{
+    node* newNode = createNode(temp);
+    node* ptr = head;
+    while(ptr->next != head)
+        ptr = ptr->next;
+    ptr->next = newNode;
+    newNode->next = head;
+}
+
+node* addElementPosition(node* head, ll temp, ll pos)
+{
+    if(pos==1)
+        return addElementFront(head, temp);
+    node* newNode = createNode(temp);
+    node* ptr = head;
+    for(int i=2; i<pos; i++)
+        ptr = ptr->next;
+    newNode->next = ptr->next;
+    ptr->next = newNode;
+    return head;
+}
+
+node* deleteElementFront(node* head)
+{
+    node* ptr = head;
+    node* prvptr = head;
+    while(prvptr->next != head)
+        prvptr = prvptr->next;
+    prvptr->next = ptr->next;
+    head = prvptr->next;
+    delete(ptr);
+    return head;
+}
+
+void deleteElementBack(node* head)
+{
+    node* prvptr = head;
+    while(prvptr->next->next != head)
+        prvptr = prvptr->next;
+    node* ptr = prvptr->next;
+    prvptr->next = head;
+    delete(ptr);
+}
+
+node* deleteElementPosition(node* head, ll pos)
+{
+    if(pos==1)
+        return deleteElementFront(head);
+    node* prvptr = head;
+    for(int i=2; i<pos; i++)
+        prvptr = prvptr->next;
+    node* ptr = prvptr->next;
+    prvptr->next = ptr->next;
+    delete(ptr);
+    return head;
+}
+
+void printList(node* head)
+{
+    node* ptr = head;
+    cout<<ptr->data<<" ";
+    ptr = ptr->next;
+    while(ptr != head)
+    {
+        cout<<ptr->data<<" ";
+        ptr = ptr->next;
+    }
+}
+
+int main() {
+    int n;
+    cin>>n;
+    ll temp, pos;
+    cin>>temp;
+    node* head = createHead(temp);
+    for(int i=1; i<n; i++)
+    {
+        cin>>temp;
+        addElementBack(head, temp);
+    }
+    //cin>>pos;
+    //cin>>temp>>pos;
+    //head = addElementFront(head, temp
+    //head = addElementPosition(head, temp, pos);
+    //head = deleteElementFront(head);
+    //deleteElementBack(head);
+    //head = deleteElementPosition(head, pos);
+    printList(head);
+    return 0;
+}

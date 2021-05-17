@@ -1,0 +1,40 @@
+#include <iostream>
+#include <set>
+using namespace std;
+
+template <typename T>
+
+void showSet(set<T, greater<T>> myset)
+{
+    auto itr = myset.begin();
+    while(itr!=myset.end())
+    {
+        cout<<*itr<<endl;
+        advance(itr,1);
+    }
+}
+
+int main() {
+    set<char> myset;
+    //beign, end, advance, next, distance - they also work here
+    myset.insert('a');
+    myset.insert('b');
+    myset.insert('c');
+    //showSet(myset);
+    auto itr = myset.find('a');
+    cout<<*itr<<endl;
+    myset.erase(itr);
+    myset.erase('b');
+    cout<<myset.size()<<endl;
+    //myset.clear();
+    cout<<myset.empty()<<endl;
+    myset.count('c');       //this will return 1 in case of unordered set if element is present because it doesn't allow duplicate keys
+    set<int, greater<int>> desc = {2, 5, 3, 7};     //keys sorted in descending order
+    showSet(desc);
+    return 0;
+}
+
+
+
+
+

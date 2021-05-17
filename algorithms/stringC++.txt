@@ -1,0 +1,23 @@
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+    string str = "Hello World";
+    cout<<str<<'\n';
+    cout<<str.length()<<'\n';
+    string str2 = ", this is Doraemon here.";
+    str += str2;
+    cout<<str<<'\n';
+    int firstor = str.find("or");
+    int secondor = str.find("or", firstor+1);
+    int thirdor = str.find("or", secondor+1);
+    cout<<firstor<<" "<<secondor<<" "<<thirdor<<endl;
+    //str.substr(start, length);
+    cout<<str.substr(0, 8)<<'\n';
+    string stralt = "Hello World";
+    string strnew = str2.insert(0,stralt);
+    cout<<strnew<<'\n';
+    strnew = str.replace(0, 5, "Hola");
+    cout<<strnew<<'\n';
+    return 0;
+}

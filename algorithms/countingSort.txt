@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void showArray(int a[], int n)
+{
+    for(int i=0; i<n; i++)
+    {
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+}
+
+int main() {
+    int n;
+    cin>>n;
+    int a[n], mx=INT_MIN;
+    for(int i=0; i<n; i++)
+    {
+        cin>>a[i];
+        mx = max(mx,a[i]);
+    }
+    //cout<<mx;
+    int countArray[mx+1] = {0};
+    for(int i=0; i<n; i++)
+    {
+        countArray[a[i]] = countArray[a[i]]+1;
+    }
+    
+    for(int i=1; i<=mx; i++)
+    {
+        countArray[i] = countArray[i] + countArray[i-1];
+    }
+    
+    int outputArray[n];
+    for(int i=n-1; i>=0; i--)
+    {
+        outputArray[--countArray[a[i]]] = a[i];
+    }
+    showArray(outputArray,n);
+    return 0;
+}

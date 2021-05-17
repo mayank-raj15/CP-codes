@@ -1,0 +1,95 @@
+#include <iostream>
+using namespace std;
+typedef long long int ll;
+
+struct node
+{
+     int capacity,size,top,rear;
+     ll* array;
+     ll* priority;
+};
+
+node* createQueue(int n)
+{
+    node* pq = (node*)malloc(sizeof(node));
+    pq->capacity = n;
+    pq->size = 0;
+    pq->array = (ll*)malloc(n*sizeof(ll));
+    pq->priority = (ll*)malloc(n*sizeof(ll));
+    return pq;
+}
+
+int isFull(node* pq)
+{
+    return pq->size == pq->capacity;
+}
+
+int isEmpty(node* pq)
+{
+    return pq->size == 0;
+}
+
+void insert(node* pq, ll data, ll priority)
+{
+    if(isFull(pq))
+        return;
+    else if(isEmpty(pq))
+    {
+        pq->array[0] = data;
+        pq->priority[0] = priority;
+    }
+    else
+    {
+        int i = pq->size-1;
+        while(pq->priority[i]<priority && i>=0)
+        {
+            pq->array[i+1]=pq->array[i];
+            pq->priority[i+1]=pq->priority[i];
+            i--;
+        }
+        pq->array[i+1] = data;
+        pq->priority[i+1] = priority;
+    }
+    pq->size++;
+}
+
+ll extractMaximum(node* pq)
+{
+    ll value = pq->array[0];
+    for(int i=0; i<pq->size-1; i++)
+    {
+        pq->array[i]=pq->array[i+1];
+        pq->priority[i]=pq->priority[i+1];
+    }
+    pq->size--;
+    return value;
+}
+
+ll maximum(node* pq)
+{
+    return pq->array[0];
+}
+
+void PrintQueue(node* pq)
+{
+    for(int i=0; i<pq->size; i++)
+    {
+        cout<<pq->array[i]<<" ";
+    }
+}
+
+int main() {
+    int n;
+    cin>>n;
+    node* pq = createQueue(n);
+    ll data, priority;
+    for(int i=0; i<n; i++)
+    {
+        cin>>data>>priority;
+        insert(pq, data, priority);
+    }
+    cout<<"Max: "<<maximum(pq)<<endl;
+    cout<<"Extract Max: "<<extractMaximum(pq)<<endl;
+    PrintQueue(pq);
+    return 0;
+}
