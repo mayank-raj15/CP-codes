@@ -2,4 +2,4 @@
 0
 3
 
-Time taken: 0 ms
+Time taken: 0.996 ms
