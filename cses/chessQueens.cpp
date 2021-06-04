@@ -20,10 +20,50 @@ typedef unsigned long long ull;
 #define pb push_back
 #define srt(v) sort(v.begin(), v.end())
 
+int cnt;
+
+void countPerm(vector<vector<bool>> &available, int col, vector<bool> &up, vector<bool> &down, vector<bool> &rows)
+{
+	if (col == 8)
+	{
+		cnt++;
+		return;
+	}
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (available[i][col] && !rows[i] && !up[8 - (i - col)] && !down[i + col])
+		{
+			rows[i] = true, up[8 - (i - col)] = true, down[i + col] = true;
+			countPerm(available, col + 1, up, down, rows);
+			rows[i] = false, up[8 - (i - col)] = false, down[i + col] = false;
+		}
+	}
+}
+
+void checkPossibilities(vector<vector<bool>> &available)
+{
+	vector<bool> up(15, false), down(15, false), rows(8, false);
+	countPerm(available, 0, up, down, rows);
+}
 
 void solve()
 {
+	vector<vector<bool>> available(8, vector<bool> (8, true));
+	for (int i = 0; i < 8; i++)
+	{
+		for (int j = 0; j < 8; j++)
+		{
+			char temp;
+			cin >> temp;
+			if (temp == '*')
+				available[i][j] = false;
+		}
+	}
 
+	checkPossibilities(available);
+
+	cout << cnt;
 }
 
 int main()
@@ -39,12 +79,12 @@ int main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		solve();
-	}
+	// int t;
+	// cin >> t;
+	// while (t--)
+	// {
+	solve();
+	// }
 
 #ifndef ONLINE_JUDGE
 	auto end = chrono::steady_clock::now();

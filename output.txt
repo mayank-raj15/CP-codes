@@ -1,0 +1,6 @@
+NNTAO
+NNAA
+AAAAAA
+OOAANNTT
+
+Time taken: 0.956 ms

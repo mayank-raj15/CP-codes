@@ -9,8 +9,6 @@ typedef unsigned long long ull;
 #define mod 1000000007
 #define send {ios_base::sync_with_stdio(false);}
 #define help {cin.tie(NULL);}
-#define pii pair<int, int>
-#define vi vector<int>
 #define fi first
 #define se second
 #define inf 1e18

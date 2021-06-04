@@ -9,8 +9,6 @@ typedef unsigned long long ull;
 #define mod 1000000007
 #define send {ios_base::sync_with_stdio(false);}
 #define help {cin.tie(NULL);}
-#define pii pair<int, int>
-#define vi vector<int>
 #define fi first
 #define se second
 #define inf 1e18
@@ -23,7 +21,30 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	int n;
+	cin >> n;
+	int a[n];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
 
+	priority_queue<int, vector<int>, greater<int>> pq;
+	ll sz = 0;
+	ll sum = 0;
+	for (int i = 0; i < n; i++)
+	{
+		sum += a[i];
+		sz++;
+		pq.push(a[i]);
+		while (pq.size() > 0 && sum < 0)
+		{
+			int cur = pq.top();
+			pq.pop();
+			sum -= cur;
+			sz--;
+		}
+	}
+
+	cout << sz << "\n";
 }
 
 int main()
@@ -39,12 +60,12 @@ int main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		solve();
-	}
+	// int t;
+	// cin >> t;
+	// while (t--)
+	// {
+	solve();
+	// }
 
 #ifndef ONLINE_JUDGE
 	auto end = chrono::steady_clock::now();

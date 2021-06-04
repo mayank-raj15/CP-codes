@@ -9,8 +9,6 @@ typedef unsigned long long ull;
 #define mod 1000000007
 #define send {ios_base::sync_with_stdio(false);}
 #define help {cin.tie(NULL);}
-#define pii pair<int, int>
-#define vi vector<int>
 #define fi first
 #define se second
 #define inf 1e18
@@ -20,10 +18,52 @@ typedef unsigned long long ull;
 #define pb push_back
 #define srt(v) sort(v.begin(), v.end())
 
+bool prime[10000001];
+int pc[10000001];
+
+void Sieve()
+{
+	int n = 10000001;
+
+	memset(prime, true, sizeof(prime));
+
+	for (int p = 2; p * p <= n; p++)
+	{
+		if (prime[p] == true)
+		{
+			for (int i = p * p; i <= n; i += p)
+				prime[i] = false;
+		}
+	}
+	pc[1] = 0;
+	for (int i = 2; i <= n; i++)
+	{
+		if (prime[i])
+			pc[i] = 1 + pc[i - 1];
+		else
+			pc[i] = pc[i - 1];
+	}
+}
 
 void solve()
 {
+	int n;
+	cin >> n;
+	int ans = 1;
+	if (n == 2)
+	{
+		cout << 1 << "\n";
+		return;
+	}
+	if (n == 3)
+	{
+		cout << 2 << "\n";
+		return;
+	}
 
+	ans = 1 + pc[n] - pc[n / 2];
+
+	cout << ans << "\n";
 }
 
 int main()
@@ -41,6 +81,7 @@ int main()
 
 	int t;
 	cin >> t;
+	Sieve();
 	while (t--)
 	{
 		solve();

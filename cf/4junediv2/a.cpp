@@ -23,7 +23,23 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	vector<pii> s;
+	for (int i = 0; i < 4; i++)
+	{
+		int temp;
+		cin >> temp;
+		s.push_back({temp, i});
+	}
 
+	srt(s);
+
+	if (s[0].se < 2 && s[1].se > 1 || s[0].se > 1 && s[1].se < 2)
+	{
+		cout << "YES";
+	}
+	else
+		cout << "NO";
+	cout << "\n";
 }
 
 int main()

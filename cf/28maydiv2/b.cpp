@@ -9,8 +9,6 @@ typedef unsigned long long ull;
 #define mod 1000000007
 #define send {ios_base::sync_with_stdio(false);}
 #define help {cin.tie(NULL);}
-#define pii pair<int, int>
-#define vi vector<int>
 #define fi first
 #define se second
 #define inf 1e18
@@ -23,7 +21,23 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	int x;
+	cin >> x;
+	if (x % 11 == 0)
+	{
+		cout << "yes\n";
+		return;
+	}
 
+	int rem = x % 11;
+	x -= rem * 111;
+	if (x >= 0 && x % 11 == 0)
+	{
+		cout << "yes\n";
+		return;
+	}
+
+	cout << "no\n";
 }
 
 int main()

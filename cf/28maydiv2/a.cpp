@@ -9,8 +9,6 @@ typedef unsigned long long ull;
 #define mod 1000000007
 #define send {ios_base::sync_with_stdio(false);}
 #define help {cin.tie(NULL);}
-#define pii pair<int, int>
-#define vi vector<int>
 #define fi first
 #define se second
 #define inf 1e18
@@ -23,7 +21,32 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	int n;
+	cin >> n;
+	n = 2 * n;
+	int a[n];
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	sort(a, a + n);
+	int b[n];
+	int i = 0, j = 1;
+	while (j < n)
+	{
+		b[j] = a[i];
+		j += 2;
+		i++;
+	}
+	j = 0;
+	while (j < n)
+	{
+		b[j] = a[i];
+		i++;
+		j += 2;
+	}
 
+	for (int i = 0; i < n; i++)
+		cout << b[i] << " ";
+	cout << "\n";
 }
 
 int main()

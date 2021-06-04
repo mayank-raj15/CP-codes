@@ -23,7 +23,24 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	int n;
+	cin >> n;
+	vi a(n);
+	for (int i = 0; i < n; i++)
+		cin >> a[i];
+	srt(a);
+	ll sum1 = 0, sum2 = 0;
+	for (int i = 0; i < n / 2; i++)
+	{
+		sum1 += a[i];
+	}
+	for (int i = n / 2; i < n; i++)
+	{
+		sum2 += a[i];
+	}
 
+	ll ans = sum1 * sum1 + sum2 * sum2;
+	cout << ans << "\n";
 }
 
 int main()
@@ -39,12 +56,12 @@ int main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		solve();
-	}
+	// int t;
+	// cin >> t;
+	// while (t--)
+	// {
+	solve();
+	// }
 
 #ifndef ONLINE_JUDGE
 	auto end = chrono::steady_clock::now();

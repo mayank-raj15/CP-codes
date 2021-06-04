@@ -23,7 +23,32 @@ typedef unsigned long long ull;
 
 void solve()
 {
+	char start, end;
+	cin >> start >> end;
+	int n;
+	cin >> n;
+	unordered_map<char, int> map;
+	map['v'] = 0;
+	map['<'] = 1;
+	map['^'] = 2;
+	map['>'] = 3;
 
+	int si = map[start], ei = map[end];
+	bool cw = false, ccw = false;
+
+	if ((si + n) % 4 == ei)
+		cw = true;
+	if (si - n >= 0 && (si - n) % 4 == ei)
+		ccw = true;
+	else if (si - n < 0 && (4 + (si - n) % 4) % 4 == ei)
+		ccw = true;
+
+	if (cw && ccw)
+		cout << "undefined\n";
+	else if (cw)
+		cout << "cw\n";
+	else if (ccw)
+		cout << "ccw\n";
 }
 
 int main()
@@ -39,12 +64,12 @@ int main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		solve();
-	}
+	// int t;
+	// cin >> t;
+	// while (t--)
+	// {
+	solve();
+	// }
 
 #ifndef ONLINE_JUDGE
 	auto end = chrono::steady_clock::now();
