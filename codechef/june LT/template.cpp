@@ -20,9 +20,106 @@ typedef unsigned long long ull;
 #define pb push_back
 #define srt(v) sort(v.begin(), v.end())
 
+struct Node
+{
+	string name, email;
+	vector<Node*> children;
+	Node(string name, string email)
+	{
+		this->name = name;
+		this->email = email;
+	}
+};
+
+unordered_map<string, bool> visited;
+vector<pair<string, vector<string>>> ans;
+
+void traverse(unordered_map<string, Node*> &graph, string curEmail)
+{
+	queue<Node *> q;
+	Node *node = graph[curEmail];
+	string name = node->name;
+	vector<string> res;
+	q.push(node);
+
+	while (!q.empty())
+	{
+		Node *curNode = q.front();
+		string email = curNode->email;
+		visited[email] = true;
+		res.push_back(email);
+		q.pop();
+
+		for (Node* child : curNode->children)
+		{
+			if (!visited[child->email])
+				q.push(child);
+		}
+	}
+	sort(res.begin(), res.end());
+	ans.push_back(make_pair(name, res));
+
+}
 
 void solve()
 {
+	int n, k = 0;
+	cin >> n;
+	unordered_map<string, Node*> graph;
+	for (int i = 0; i < n; i++)
+	{
+		string name, email1, email2;
+		cin >> name;
+		int cnt;
+		cin >> cnt;
+		cin >> email1;
+		if (graph.find(email1) == graph.end())
+		{
+			graph[email1] = new Node(name, email1);
+			visited[email1] = false;
+		}
+		cnt--;
+		while (cnt--)
+		{
+			cin >> email2;
+			if (graph.find(email2) == graph.end())
+			{
+				graph[email2] = new Node(name, email2);
+				visited[email2] = false;
+			}
+			Node *node1 = graph[email1];
+			Node *node2 = graph[email2];
+			node1->children.push_back(node2);
+			node2->children.push_back(node1);
+			email1 = email2;
+			k++;
+		}
+	}
+
+	/*for(auto it:graph)
+	{
+	    cout<<it.first<<": ";
+	    for(auto el:(it.second)->children)
+	        cout<<el->email<<" ";
+	    cout<<"\n";
+	}*/
+
+	for (auto el : graph)
+	{
+		if (!visited[el.first])
+			traverse(graph, el.first);
+	}
+
+
+	sort(ans.begin(), ans.end());
+
+	for (auto el : ans)
+	{
+		cout << el.first << " ";
+		for (auto it : el.second)
+			cout << it << " ";
+		cout << "\n";
+	}
 
 }
 
@@ -39,12 +136,12 @@ int main()
 	freopen("output.txt", "w", stdout);
 #endif
 
-	int t;
-	cin >> t;
-	while (t--)
-	{
-		solve();
-	}
+	// int t;
+	// cin >> t;
+	// while (t--)
+	// {
+	solve();
+	// }
 
 #ifndef ONLINE_JUDGE
 	auto end = chrono::steady_clock::now();
