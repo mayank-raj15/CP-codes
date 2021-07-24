@@ -26,45 +26,49 @@ void append(Node **head, int val)
 	}
 }
 
-void swapNodesPairwise(Node **head)
+void reverseElements(Node **head, int x)
 {
-	Node *prev = NULL;
-	if (*head == NULL)
+	Node *prev = *head, *oldHead = *head;
+	if (prev == NULL || prev->next == NULL)
 		return;
-	Node *cur1 = *head, *cur2 = cur1->next;
-
-	while (cur1 && cur2)
+	Node *cur = prev->next , *temp = cur;
+	x--;
+	prev->next == NULL;
+	while (cur && x > 0)
 	{
-		if (prev)
-			prev->next = cur2;
-		else
-			prev = cur2;
-		cur1->next = cur2->next;
-		cur2->next = cur1;
-
-		if (cur1 == *head)
-			*head = cur2;
-
-		prev = cur1;
-
-		if (cur1->next)
-		{
-			cur1 = cur1->next;
-			cur2 = cur1->next;
-		}
-		else
-			break;
-
+		temp = temp->next;
+		cur->next = prev;
+		prev = cur;
+		cur = temp;
+		x--;
 	}
+
+	if (cur == NULL || (cur->next) == NULL)
+	{
+		(*head)->next = cur;
+		*head = prev;
+		return;
+	}
+
+	Node *prev2 = cur;
+	cur = prev2->next, temp = cur;
+	prev2->next = NULL;
+
+	while (cur)
+	{
+		temp = temp->next;
+		cur->next = prev2;
+		prev2 = cur;
+		cur = temp;
+	}
+
+	(*head)->next = prev2;
+	*head = prev;
 }
+
 
 void printList(Node *head)
 {
-	if (head == NULL)
-	{
-		cout << "List is empty";
-		return;
-	}
 	Node *temp = head;
 	while (temp != NULL)
 	{
@@ -85,7 +89,10 @@ int main()
 		append(&head, temp);
 	}
 
-	swapNodesPairwise(&head);
+	int x;
+	cin >> x;
+
+	reverseElements(&head, x);
 
 	printList(head);
 }
